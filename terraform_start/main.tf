@@ -1,6 +1,3 @@
-variable "client_secret" {
-}
-
 terraform {
   required_providers {
     azurerm = {
@@ -12,10 +9,20 @@ terraform {
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
+  skip_provider_registration = true # This is only required when the User, Service Principal, or Identity running Terraform lacks the permissions to register Azure Resource Providers.
   features {}
+}
 
-  client_id       = "5deee0d2-4018-4d36-936e-2927bd58560b"
-  client_secret   = var.client_secret
-  tenant_id       = "a5c3c934-0868-4e61-bc72-204f09e8cb57"
-  subscription_id = "075b9f4c-734d-44f7-8eb5-ef267c529b63"
+# Create a resource group
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "West Europe"
+}
+
+# Create a virtual network within the resource group
+resource "azurerm_virtual_network" "example" {
+  name                = "example-network"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  address_space       = ["10.0.0.0/16"]
 }
