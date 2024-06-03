@@ -1,0 +1,1 @@
+test_terraform_SP = "<A display name for the <entra-service-principal>>"
