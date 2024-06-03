@@ -1,44 +1,21 @@
-variable "azure_service_principal_display_name" {
-  description = "A display name for the <entra-service-principal>."
-  type        = string
+variable "client_secret" {
 }
 
 terraform {
   required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
     }
   }
 }
 
+# Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {}
-}
 
-resource "azuread_application" "this" {
-  display_name = var.azure_service_principal_display_name
-}
-
-resource "azuread_service_principal" "this" {
-  application_id = azuread_application.this.application_id
-}
-
-resource "time_rotating" "month" {
-  rotation_days = 30
-}
-
-resource "azuread_service_principal_password" "this" {
-  service_principal_id = azuread_service_principal.this.object_id
-  rotate_when_changed  = { rotation = time_rotating.month.id }
-}
-
-output "azure_client_id" {
-  description = "The Azure AD service principal's application (client) ID."
-  value       = azuread_application.this.application_id
-}
-
-output "azure_client_secret" {
-  description = "The Azure AD service principal's client secret value."
-  value       = azuread_service_principal_password.this.value
-  sensitive   = true
+  client_id       = "5deee0d2-4018-4d36-936e-2927bd58560b"
+  client_secret   = var.client_secret
+  tenant_id       = "a5c3c934-0868-4e61-bc72-204f09e8cb57"
+  subscription_id = "075b9f4c-734d-44f7-8eb5-ef267c529b63"
 }
