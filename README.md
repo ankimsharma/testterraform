@@ -9,4 +9,4 @@ az account set --subscription <Subscription_Id>
 create a terraform project directory 
 mkdir terraform_test
 clone the project from repo
-git clone <git_repo_address>
+git clone https://github.com/ankimsharma/testterraform.git 
