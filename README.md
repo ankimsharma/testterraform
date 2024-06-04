@@ -1,12 +1,4 @@
-Exucute the following for the setup 
-login to azure account
-az login
-get subscription ID
-az account list -o table
+This Project is for begineers trying to learn terraform please follow the indivitual documents for each folder and run the commands mentioned in it.
 
-az account set --subscription <Subscription_Id>
+For this you will need Terraform and Azure cli in your matchine.
 
-create a terraform project directory 
-mkdir terraform_test
-clone the project from repo
-git clone https://github.com/ankimsharma/testterraform.git 
