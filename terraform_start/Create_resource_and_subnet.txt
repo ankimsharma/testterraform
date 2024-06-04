@@ -1,0 +1,32 @@
+#Login to azure account:
+az login
+
+#List the available subscriptions in your directory:
+az account list -o table
+
+#Select subscription to be used:
+az account set --subscription 075b9f4c-734d-44f7-8eb5-ef267c529b63     
+
+#Create a sirectory for Code:
+mkdir terraform_test
+cd terraform_test
+
+#clone the git repo:
+git clone https://github.com/ankimsharma/testterraform.git 
+cd home/a/terraform_test/testterraform/terraform_start
+
+#if you see error due to Microsoft.Network run below command:
+Register-AzureRmResourceProvider -ProviderNamespace Microsoft.Network
+
+#Go to the folder with file main.tf and run following commands
+#Initialize your working directory and install provider plugins:
+terraform init
+
+#Create an execution plan:
+terraform plan
+
+#Apply the pre-determined execution plan:
+terraform apply --auto-approve
+
+#Destroy resouces created by the code:
+terraform destroy --auto-approve
